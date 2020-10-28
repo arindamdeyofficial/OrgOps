@@ -1,9 +1,11 @@
-﻿using Businessmodel.Common;
+﻿using AutoMapper;
+using Businessmodel.Common;
 using BusinessModel;
 using BusinessModel.Course;
 using DbModels;
 using RepositoryLayer.Repository;
 using Saga.V1.Interface;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,11 +28,17 @@ namespace Course.V1.Implementation
         /// </summary>
         private IDbRepository<CourseDbEntity> _courseRepository { get; set; }
 
-        public CourseAr(IApiRequestHandler reqHandler, IUnitOfWork unitOfWork)
+        /// <summary>
+        /// Gets the Mapper.
+        /// </summary>
+        private IMapper _mapper { get; }
+
+        public CourseAr(IApiRequestHandler reqHandler, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _reqHandler = reqHandler;
             _courseRepository = unitOfWork.GetRepository<CourseDbEntity>();
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -42,19 +50,8 @@ namespace Course.V1.Implementation
             return new CourseResponseModel
             {
                 IsSuccess = true,
-                Courses = (await _courseRepository.GetFirstOrDefaultAsyncGroupBy(x =>
-                    new CourseDbEntity
-                    {
-                        CourseId = x.CourseId,
-                        CourseName = x.CourseName,
-                        CourseDesc = x.CourseDesc
-                    }
-                )).Select(x => new CourseModel
-                {
-                    CourseId = x.CourseId,
-                    CourseName = x.CourseName,
-                    CourseDesc = x.CourseDesc
-                })
+                Courses = _mapper.Map<IEnumerable<CourseDbEntity>, IEnumerable<CourseModel>>(
+                    await _courseRepository.GetAsync(x => request.searchParams.Contains(x.CourseId.ToString()), null, m=>m.CourseId))
             };
         }
     }

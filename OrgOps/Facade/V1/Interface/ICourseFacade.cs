@@ -5,6 +5,6 @@ namespace Facade.Interface.V1
 {
     public interface ICourseFacade
     {
-        Task<CourseResponseModel> CourseList();
+        Task<CourseResponseModel> CourseList(CourseRequestModel request);
     }
 }

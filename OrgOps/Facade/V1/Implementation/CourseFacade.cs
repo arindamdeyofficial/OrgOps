@@ -27,10 +27,10 @@ namespace Facade.Implementation.V1
             _ployPolicyHandler = ployPolicyHandler;
             _courseSaga = courseSaga;
         }
-        public async Task<CourseResponseModel> CourseList()
+        public async Task<CourseResponseModel> CourseList(CourseRequestModel request)
         {
             return await _ployPolicyHandler.GetPollyPolicyConfiguration()
-               .ExecuteAsync(async () => await _courseSaga.Value.Execute(null))
+               .ExecuteAsync(async () => await _courseSaga.Value.Execute(request))
                .ConfigureAwait(false);
         }
     }
