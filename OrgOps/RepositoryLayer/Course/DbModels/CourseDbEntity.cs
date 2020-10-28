@@ -1,4 +1,4 @@
-﻿namespace SGRE.SiteEnrichment.RepositoryLayer.Geography.DbModels
+﻿namespace DbModels
 {
     public partial class CourseDbEntity
     {

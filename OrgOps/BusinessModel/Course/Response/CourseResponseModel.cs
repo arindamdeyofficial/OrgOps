@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BusinessModel.Geography
+namespace BusinessModel.Course
 {
     /// <summary>
     /// Defines the <see cref="CourseResponseModel" />.

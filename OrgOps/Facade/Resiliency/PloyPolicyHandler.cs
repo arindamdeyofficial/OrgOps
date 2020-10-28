@@ -1,16 +1,14 @@
-﻿using Polly;
-using Polly.Bulkhead;
+﻿using Businessmodel.Common;
+using Polly;
 using Polly.CircuitBreaker;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
-using Polly.Fallback;
 using Polly.Retry;
 using Polly.Timeout;
 using Polly.Wrap;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Facade
 {
@@ -19,16 +17,16 @@ namespace Facade
         /// <summary>
         /// For log and exception handling
         /// </summary>
-        //private readonly IApiRequestHandler _reqHandler;
+        private readonly IApiRequestHandler _reqHandler;
 
         /// <summary>
         /// AsyncPolicyWrap
         /// </summary>
         private readonly AsyncPolicyWrap _policyWrapDb;
 
-        public PloyPolicyHandler()//IApiRequestHandler reqHandler)
+        public PloyPolicyHandler(IApiRequestHandler reqHandler)
         {
-            //_reqHandler = reqHandler;
+            _reqHandler = reqHandler;
             AsyncRetryPolicy retry = GetDbRetryPolicy();
             AsyncCircuitBreakerPolicy breaker = GetDbCircuitBreakerPolicy();
             AsyncTimeoutPolicy timeout = GetDbTimeOutPolicy();

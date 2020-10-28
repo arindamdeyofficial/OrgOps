@@ -8,7 +8,7 @@ namespace BusinessModel
         /// <summary>
         /// Gets or Sets Course Id
         /// </summary>
-        public Guid CourseId { get; set; }
+        public int CourseId { get; set; }
 
         /// <summary>
         /// Gets or Sets Course Name

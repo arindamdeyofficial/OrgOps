@@ -19,12 +19,12 @@ namespace RepositoryLayer.Repository
         /// <summary>
         /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
         /// </summary>
-        /// <param name="siteEnrichmentContext">The SiteEnrichmentContext<see cref="SiteEnrichmentContext"/>.</param>
-        public UnitOfWork(RationCardContext siteEnrichmentContext)
+        /// <param name="RationCardContext">The RationCardContext<see cref="RationCardContext"/>.</param>
+        public UnitOfWork(RationCardContext rationCardContext)
         {
             if (context == null)
             {
-                context = siteEnrichmentContext;
+                context = rationCardContext;
             }
         }
 
