@@ -1,4 +1,6 @@
 ﻿using Businessmodel.Common;
+using BusinessModel.Common;
+using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.CircuitBreaker;
 using Polly.Contrib.WaitAndRetry;
@@ -7,6 +9,7 @@ using Polly.Retry;
 using Polly.Timeout;
 using Polly.Wrap;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 
@@ -24,13 +27,34 @@ namespace Facade
         /// </summary>
         private readonly AsyncPolicyWrap _policyWrapDb;
 
-        public PloyPolicyHandler(IApiRequestHandler reqHandler)
+        /// <summary>
+        /// Configuration
+        /// </summary>
+        private readonly IConfiguration _configuration;
+
+        public PloyPolicyHandler(IApiRequestHandler reqHandler, IConfiguration configuration)
         {
             _reqHandler = reqHandler;
+            _configuration = configuration;
             AsyncRetryPolicy retry = GetDbRetryPolicy();
             AsyncCircuitBreakerPolicy breaker = GetDbCircuitBreakerPolicy();
             AsyncTimeoutPolicy timeout = GetDbTimeOutPolicy();
-            IAsyncPolicy[] policies = new AsyncPolicy[] { retry, breaker, timeout };
+            var enablementConfig = configuration.GetSection("Resiliency").Get<ResiliencyConfigs>();
+
+            IAsyncPolicy[] policies = new AsyncPolicy[] { retry };
+            
+            if (enablementConfig.CircuitBreakerEnabled)
+            {
+                policies.Append(breaker);
+            }
+            if (enablementConfig.RetryEnabled)
+            {
+                policies.Append(retry);
+            }
+            if (enablementConfig.TimeOutEnabled)
+            {
+                policies.Append(timeout);
+            }
             _policyWrapDb = Policy.WrapAsync(policies);
         }
 

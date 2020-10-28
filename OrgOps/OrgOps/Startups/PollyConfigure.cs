@@ -14,7 +14,7 @@ namespace OrgOps
             var apiRequestHandlerProvider = prov.GetService<IApiRequestHandler>();
             var polyHttpPolicyHandlerProvider = prov.GetService<IPloyHttpPolicyHandler>();
 
-            services.AddSingleton<IPolyDbPolicyHandler>(new PloyPolicyHandler(apiRequestHandlerProvider));
+            services.AddSingleton<IPolyDbPolicyHandler>(new PloyPolicyHandler(apiRequestHandlerProvider, configuration));
 
             services.AddHttpClient("appHttpClient")
                .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
