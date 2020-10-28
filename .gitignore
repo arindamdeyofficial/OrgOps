@@ -4,3 +4,13 @@
 
 /OrgOps/OrgOps/obj
 /OrgOps/.vs/OrgOps/v16
+/OrgOps/BusinessModel/bin/Debug/netcoreapp3.1
+/OrgOps/BusinessModel/obj
+/OrgOps/Facade/bin/Debug/netcoreapp3.1
+/OrgOps/Facade/obj
+/OrgOps/OrgOps/bin/Debug/netcoreapp3.1
+/OrgOps/RepositoryLayer/bin/Debug/netcoreapp3.1
+/OrgOps/RepositoryLayer/obj
+/OrgOps/Saga/bin/Debug/netcoreapp3.1
+/OrgOps/Saga/obj
+/OrgOps/.vs/OrgOps
