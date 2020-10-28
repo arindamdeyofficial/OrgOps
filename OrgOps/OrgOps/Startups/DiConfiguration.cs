@@ -1,6 +1,7 @@
 ﻿using Businessmodel.Common;
 using BusinessModel.Course;
 using Course.V1.Implementation;
+using Facade;
 using Facade.Implementation.V1;
 using Facade.Interface.V1;
 using Filters;
@@ -19,6 +20,7 @@ namespace OrgOps
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IApiRequestHandler, HandleExceptionPrivateAttribute>();
+            services.AddScoped<IPloyHttpPolicyHandler, PloyPolicyHandler>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserContext, UserContext>();
 
