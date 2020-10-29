@@ -3,37 +3,32 @@
     /// <summary>
     /// Defines the <see cref="ResiliencyConfigs" />.
     /// </summary>
-    public class ResiliencyConfigs: IResiliencyConfigs
+    public interface IResiliencyConfigs
     {
         /// <summary>
         /// Gets or sets the .
         /// </summary>
-        public int ResiliencyEnabled { get; set; }
+        public int FallBackEnabled { get; }
 
         /// <summary>
         /// Gets or sets the .
         /// </summary>
-        public int FallBackEnabled { get; set; }
+        public int RetryEnabled { get; }
 
         /// <summary>
         /// Gets or sets the .
         /// </summary>
-        public int RetryEnabled { get; set; }
+        public int CircuitBreakerEnabled { get; }
 
         /// <summary>
         /// Gets or sets the .
         /// </summary>
-        public int CircuitBreakerEnabled { get; set; }
+        public int BulkHeadEnabled { get; }
 
         /// <summary>
         /// Gets or sets the .
         /// </summary>
-        public int BulkHeadEnabled { get; set; }
-
-        /// <summary>
-        /// Gets or sets the .
-        /// </summary>
-        public int TimeOutEnabled { get; set; }
+        public int TimeOutEnabled { get; }
 
     }
 }

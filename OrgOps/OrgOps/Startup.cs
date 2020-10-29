@@ -48,7 +48,7 @@ namespace OrgOps
             var authSettingsWebAPI = Configuration.GetSection("AzureActiveDirectoryWebAPI").Get<AuthenticationConfigWebAPI>();
             services.AddScoped<IAzureActiveDirectoryClientApp>(options => azureAuthSettings);
             services.AddScoped<IAuthenticationConfigWebAPI>(options => authSettingsWebAPI);
-
+            
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

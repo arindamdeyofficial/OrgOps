@@ -29,9 +29,18 @@ namespace Facade.Implementation.V1
         }
         public async Task<CourseResponseModel> CourseList(CourseRequestModel request)
         {
-            return await _ployPolicyHandler.GetPollyPolicyConfiguration()
-               .ExecuteAsync(async () => await _courseSaga.Value.Execute(request))
-               .ConfigureAwait(false);
+            CourseResponseModel a = new CourseResponseModel();
+            try
+            {
+                a = await _ployPolicyHandler.GetPollyPolicyConfiguration()
+                   .ExecuteAsync(async () => await _courseSaga.Value.Execute(request).ConfigureAwait(false))
+                   .ConfigureAwait(false);
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return a;
         }
     }
 }
